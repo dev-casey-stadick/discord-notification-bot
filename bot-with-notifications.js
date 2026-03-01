@@ -15,7 +15,7 @@ const client = new Client({
 
 // Configuration
 const CONFIG = {
-  notifyUserId: process.env.NOTIFY_USER_ID || null,
+  notifyUserIds: process.env.NOTIFY_USER_ID?.split(',').map(id => id.trim()).filter(Boolean) || [],
   trackedGuildIds: process.env.TRACKED_GUILD_IDS?.split(',').filter(Boolean) || [],
   trackedVoiceChannelIds: process.env.TRACKED_VOICE_CHANNELS?.split(',').filter(Boolean) || [],
 };
@@ -53,8 +53,8 @@ client.once(Events.ClientReady, (readyClient) => {
   console.log(`✅ Bot logged in as ${readyClient.user.tag}`);
   console.log(`📡 Listening for voice channel joins...`);
 
-  if (CONFIG.notifyUserId) {
-    console.log(`📧 Join notifications → User ${CONFIG.notifyUserId}`);
+  if (CONFIG.notifyUserIds.length > 0) {
+    console.log(`📧 Join notifications → ${CONFIG.notifyUserIds.length} user(s)`);
   }
 });
 
@@ -75,9 +75,11 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
     if (oldCount === 0 && previousCount > 0) {
       console.log(`\n🔕 [EMPTY] #${oldChannel.name} is now empty`);
 
-      if (CONFIG.notifyUserId) {
+      if (CONFIG.notifyUserIds.length > 0) {
         const message = `🔕 **#${oldChannel.name}** is now empty`;
-        await sendDMWithRetry(CONFIG.notifyUserId, message);
+        for (const userId of CONFIG.notifyUserIds) {
+          await sendDMWithRetry(userId, message);
+        }
       }
     }
 
@@ -112,9 +114,11 @@ client.on(Events.VoiceStateUpdate, async (oldState, newState) => {
       console.log(`   First person: ${member.user.username}`);
       console.log(`   Users in channel: ${newCount}`);
 
-      if (CONFIG.notifyUserId) {
+      if (CONFIG.notifyUserIds.length > 0) {
         const message = `🟢 **#${newChannel.name}** is now occupied (${member.user.username} joined)`;
-        await sendDMWithRetry(CONFIG.notifyUserId, message);
+        for (const userId of CONFIG.notifyUserIds) {
+          await sendDMWithRetry(userId, message);
+        }
       }
     }
 
