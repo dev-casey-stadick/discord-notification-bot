@@ -1,5 +1,96 @@
+# Rust / Cargo
+/rust/target/
+/rust/Cargo.lock
+**/*.rs.bk
+*.pdb
+*.rlib
+
+# Node.js (for JavaScript version if kept)
 node_modules/
+package-lock.json
+npm-debug.log
+yarn-error.log
+
+# Environment variables
 .env
 .env.local
+.env.*.local
+
+# IDE & Editor
+.vscode/
+.idea/
 .DS_Store
+*.swp
+*.swo
+*~
+.vim/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.eclipse/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs
 *.log
+logs/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+/build/
+/dist/
+*.o
+*.a
+*.so
+*.dylib
+
+# Test coverage
+/coverage/
+*.lcov
+tarpaulin-report.html
+cobertura.xml
+
+# Debugging
+.gdb_history
+.lldb_history
+debugger.xml
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+.#*
+
+# IDE specific
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/*
+!.idea/runConfigurations.xml
+
+# GitHub Actions artifacts
+.github/workflows/logs/
+
+# Misc
+.cache/
+.ipynb_checkpoints/
+*.orig
